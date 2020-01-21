@@ -1,0 +1,38 @@
+{% extends "book/base.html" %}
+{% block content %}
+<br><br>
+
+
+<div class="row white">
+    <div class="columns large-12">
+        <form method="POST" id="post-form">
+            {% csrf_token %}
+            <div class="fieldWrapper" id="the_post">
+                {{ form.name }}
+                {{ form.penulis}}
+            </div>
+            <div id="results"></div>
+            <input type="submit" value="Post" class="tiny button">
+        </form>
+    </div>
+</div>
+
+<!-- The feed -->
+<div class="row white">
+    <div class="columns large-12">
+        <ul id="talk">
+            {% for post in all_books %}
+            {{post}}
+                <li id='post-{{post.pk}}'>
+                    <strong>{{ post.name }}</strong> -
+                    <em>{{ post.penulis }}</em> -
+                    <span>{{ post.created_date }}</span> -
+                    <a id='delete-post-{{post.id}}'>delete me</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+<script src="static/scripts/main.js"></script>
+{% endblock %}
